@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Button></Button>
+      <Button size="large" block></Button>
     </>
   );
 }
