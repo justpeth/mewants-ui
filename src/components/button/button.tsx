@@ -28,20 +28,34 @@ type AnchorButtonProps = BaseButtonProps &
   React.AnchorHTMLAttributes<HTMLElement>;
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
+
+const prefix = 'm-btn'
+
 const Button: React.FC<ButtonProps> = (props) => {
-  let { size, block, className, disabled, btnType, href, ghost, loading, ...rest } = props;
-  let cls = clsx(
+  let { size, block, className, disabled, btnType, href, ghost, loading, children, ...rest } = props;
+  let classes = clsx(
     "m-btn",
     {
-      [`m-btn-${size}`]: size,
-      [`m-btn-block`]: block,
+      [`${prefix}-${btnType}`]: btnType,
+      [`${prefix}-${size}`]: size,
+      [`${prefix}-block`]: block,
+      [`${prefix}-ghost`]: ghost,
+      [`${prefix}-loading`]: loading,
     },
     className
   );
 
+  if (btnType === 'link') {
+    return (
+      <a href={href} className={classes} {...rest}>
+        {children}
+      </a>
+    )
+  }
+
   return (
-    <button className={cls} {...rest}>
-      button
+    <button className={classes} disabled={disabled} {...rest}>
+      {children}
     </button>
   );
 };
@@ -51,6 +65,7 @@ Button.defaultProps = {
   ghost: false,
   btnType: "default",
   loading: false,
+  children: 'button',
 };
 
 export default Button;
