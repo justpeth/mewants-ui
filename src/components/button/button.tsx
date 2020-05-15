@@ -29,7 +29,7 @@ type AnchorButtonProps = BaseButtonProps &
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
 const Button: React.FC<ButtonProps> = (props) => {
-  let { size, block, className, ...rest } = props;
+  let { size, block, className, disabled, btnType, href, ghost, loading, ...rest } = props;
   let cls = clsx(
     "m-btn",
     {
